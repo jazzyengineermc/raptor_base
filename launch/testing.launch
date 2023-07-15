@@ -13,21 +13,12 @@
 
     <include file="$(find raptor_base)/launch/include/rplidar.launch" />
     <include file="$(find raptor_base)/launch/include/usb_cam.launch" />
-    <include file="$(find raptor_base)/launch/include/rs_camera.launch">
+    <include file="$(find raptor_base)/launch/include/rs_rgbd.launch">
         <arg name="align_depth" value="true"/>
-        <arg name="linear_accel_cov" value="1.0"/>
-        <arg name="unite_imu_method" value="linear_interpolation"/>
     </include>
 
-    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="ImuFilter">
-        <param name="use_mag" type="bool" value="false" />
-        <param name="_publish_tf" type="bool" value="false" />
-        <param name="_world_frame" type="string" value="enu" />
-        <remap from="/imu/data_raw" to="/camera/imu"/>
-    </node>
     <include file="$(find raptor_base)/launch/include/ekf_filter.launch" />
 
-   
     <include file="$(find raptor_mapping)/launch/home_map.launch" />    
     <include file="$(find raptor_navigation)/launch/amcl_diff.launch" />
 <!-- 
